@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <title>Book Notes</title>
+</head>
+    
+    
+<div class="page">
+    <div class="card">
+        
+            <h1>Murtaza Ali</h1>
+            <h2>Book Notes</h2>
+            <h3>Books I have read</h3>
+            
+        <% books.forEach(element => { %>
+            
+        <div class="container">
+            
+            <div class="cover">
+                <img src="https://covers.openlibrary.org/b/isbn/<%=element.isbn%>-L.jpg" height="300px" width="200px">
+            </div>  
+
+            <div class="heading">
+                <h2><%= element.title %></h2>
+                <p> <span>Date Read: </span><%= element.date_read %></p>
+                <p> <span>Rating:</span> <%= element.rating %></p>
+            </div>
+
+            <div class="edit">
+                <a href="/edit/<%=element.id%>"><button>Edit</button></a>
+            </div>
+
+            <div class="summary">
+                <h3>Book Highlights:</h3>
+
+                <p>
+                    <%= element.summary %>
+                </p>
+            </div>
+
+            <div class="links">
+                <p><a href="/buy/<%= element.id %>">Buy this book</a></p>
+                <p><a href="/notes/<%=element.id%>">Read Detailed Notes</a></p>
+            </div>
+        </div>
+        <% }); %>
+
+        <div>
+            <a href="/add"><button>Add a book</button></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

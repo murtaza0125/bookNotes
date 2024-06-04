@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <title>Edit Book</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="card">
+            <form class="form" action="/modify/<%=book.id%>" method="post">
+                <label for="isbn">ISBN:</label>
+                <input type="text" name="isbn" value="<%= book.isbn %>" id="isbn">
+
+                <label for="title">Title:</label>
+                <textarea name="title" rows="1" cols="100" id="title"><%= book.title %></textarea>
+
+                <label for="date">Date:</label>
+                <input name="date" type="datetime" value="<%= book.date_read %>" id="date">
+                
+                <label for="rating">Rating (out of 10):</label>
+                <input name="rating" type="text" value="<%=book.rating%>" id="rating">
+
+                <label for="summary">Summary:</label>
+                <textarea name="summary" rows="20" cols="100" id="summary"> <%=book.summary%></textarea>
+
+                <label for="link">Buy Link:</label>
+                <input name="link" type="text" size= "30" value="<%= book.link %>" id="link">
+
+                <label for="notes">Detailed Notes:</label>
+                <textarea name="notes" rows="1" cols="100" id="notes"><%= book.notes %></textarea>
+
+                <div class="radio">
+                    <label for="yes_no_radio">Have you read this book?</label>
+                    <input id="yes_no" type="radio" name="yes_no" checked>Yes</input>
+                    <input type="radio" name="yes_no">No</input>
+                </div>
+                
+                <div class="button-tab">
+                    <button type="submit">Save</button>
+                    <button type="reset">Clear</button>
+                    <button type="button" name="cancel" value="cancel">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
