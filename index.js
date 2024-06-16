@@ -48,16 +48,35 @@ app.post("/add/new", async (req, res) => {
 });
 
 app.get("/edit/:id", async (req, res) => {
-    const id = req.params.id;
-    // console.log(id);
-    // console.log(typeof(id));
-    const result = await db.query("SELECT * FROM books, rating WHERE books.id = $1 AND books.id = rating.id", [id]);
-    // console.log(result.rows[0])
-    const bookData = result.rows[0];
-    res.render("edit.ejs", {
-        book: bookData
-    });
+    try {
+        const iD = req.params.id;
+        // console.log(req.params);
+        const result = await db.query("SELECT * FROM books, rating WHERE books.id = $1 AND books.id = rating.id", [iD]);
+        const bookData = result.rows[0];
+        // console.log(bookData);
+        res.render("edit.ejs", {
+            book: bookData
+        });
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
+
+app.post("/modify/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+    
+        await db.query("UPDATE books SET isbn=$1, title=$2, summary=$3, notes=$4, link=$5, date_read=$6 WHERE id = $7", [parseInt(req.body.isbn), req.body.title, req.body.summary, req.body.notes, req.body.link, new Date(req.body.date), id]);
+        await db.query("UPDATE rating SET rating=$1 WHERE id = $2", [req.body.rating, id]);
+    
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        res.json("Error editing book:");
+    }
+
+})
 
 app.get("/buy/:id", async (req, res) => {
     const id = req.params.id;
@@ -76,6 +95,8 @@ app.get("/notes/:id", async (req, res) => {
         book: bookData
     });
 });
+
+
 
 app.get("/api/:id", async (req, res) => {
     const id = req.params.id;
